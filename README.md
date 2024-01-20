@@ -90,3 +90,19 @@ add
 some
 more words
 ```
+
+## Useful functions
+
+* libft functions, including ft_printf
+* access, pipe, fork, dup2, execve, waitpid: look up in manual
+
+## Task
+
+Recreate, e.g. the behavior of `< file1 grep "apple" | wc -l > file2` with a program `pipex` such that it can be exectued as `./pipex file1 "grep apple" "wc -l" file2`.
+
+## Sources
+
+* [concepts and pseudocode](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901) for the mandatory part
+
+
+ 
