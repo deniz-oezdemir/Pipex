@@ -4,15 +4,15 @@
 
 The command < file1 cmd1 | cmd2 > file2 involves input/output redirection and a pipeline. Here's an explanation step by step:
 
-1. < file1: This part uses input redirection. It takes the content of the file named "file1" and provides it as the input for the command that follows.
+1. `< file1`: This part uses input redirection. It takes the content of the file named "file1" and provides it as the input for the command that follows.
 
-2. cmd1: This is the first command in the pipeline. It processes the input received from "file1."
+2. `cmd1`: This is the first command in the pipeline. It processes the input received from "file1."
 
 3. `|`: The pipe symbol (`|`) is used to connect the output of the command on its left (in this case, the output of cmd1) to the input of the command on its right (in this case, cmd2).
 
-4. cmd2: This is the second command in the pipeline. It takes the output of cmd1 as its input.
+4. `cmd2`: This is the second command in the pipeline. It takes the output of cmd1 as its input.
 
-5. > file2: This part involves output redirection. It takes the output of cmd2 and writes it to the file named "file2."
+5. `> file2`: This part involves output redirection. It takes the output of cmd2 and writes it to the file named "file2."
 
 
 Let's create an example using `grep` and `wc`. Suppose you have the following commands:
@@ -45,3 +45,52 @@ cat file2
 ```
 The output should be: `2`.
 
+
+Try also `< file1 cat`.
+
+
+## What does `<<` do?
+
+`>` replaces  while `>>` appends the output of the command on the left to the the content of the file on the right:
+
+```
+echo "add" >> file2
+cat file2
+```
+
+```
+echo "replace" > file2
+cat file2
+```
+
+## What does `>>` do?
+
+The << symbol is used for a here document in shell scripting. A here document allows you to include multiple lines of input in a script or command directly, without needing to create a separate file. It's often used when you want to provide input to a command or script interactively or include a block of text as input.
+
+The basic syntax is:
+```
+command << delimiter
+    input lines
+delimiter
+```
+
+Example:
+```
+cat << end >> file2
+```
+```
+heredoc> add
+heredoc> some
+heredoc> more words
+heredoc> end
+```
+
+```
+cat file2
+```
+```
+replace
+add
+some
+more words
+```
