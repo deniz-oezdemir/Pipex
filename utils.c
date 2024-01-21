@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denizozd <denizozd@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: denizozd <denizozd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:41:06 by denizozd          #+#    #+#             */
-/*   Updated: 2024/01/20 16:52:55 by denizozd         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:17:19 by denizozd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	exec(char *av, char **ev)
 		err();
 }
 
-char	*get_path(char	*cmd, char *ev)
+char	*get_path(char	*cmd, char **ev)
 {
 	char	**all_paths;
 	char	*path;
@@ -40,13 +40,13 @@ char	*get_path(char	*cmd, char *ev)
 	int	i;
 
 	i = 0;
-	while(ft_strnstr(ev[i], "PATH", 4) == 0)
+	while(ft_strnstr(ev[i], "PATH", 4) == 0) //libft
 		i++;
 	all_paths = ft_split(ev[i] + 5, ':'); //+5 to jump PATH\n
 	i = 0;
 	while (all_paths[i])
 	{
-		path_part = ft_strjoin(allpath[i], "/");
+		path_part = ft_strjoin(all_paths[i], "/"); //libft
 		path = ft_strjoin(path_part, cmd);
 		free(path_part);
 		if (access(path, F_OK) == 0)
@@ -63,6 +63,6 @@ char	*get_path(char	*cmd, char *ev)
 
 void	err(void)
 {
-	perror("./pipex infile cmd cmd outfile\n");
+	perror("Error");
 	exit(0);
 }
