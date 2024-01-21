@@ -6,7 +6,7 @@
 /*   By: denizozd <denizozd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:40:45 by denizozd          #+#    #+#             */
-/*   Updated: 2024/01/21 10:13:23 by denizozd         ###   ########.fr       */
+/*   Updated: 2024/01/21 10:14:24 by denizozd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,5 @@ void	parent(char **av, int **ev, int fd);
 void	exec(char *av, char **ev);
 char	*get_path(char	*cmd, char *ev);
 void	err(void);
+
+#endif
