@@ -6,7 +6,7 @@
 /*   By: denizozd <denizozd@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:40:56 by denizozd          #+#    #+#             */
-/*   Updated: 2024/01/20 16:22:31 by denizozd         ###   ########.fr       */
+/*   Updated: 2024/01/21 10:03:39 by denizozd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int ac, char **av, char **ev)
 	pid_t	pid;
 
 	if (ac != 5)
-		ft_putstr_fd("./pipex <file1> <cmd1> <cmd2> <file2>\n", 2); //add libft
+		err();
 	else
 	{
 		if (pipe(fd) == -1)
