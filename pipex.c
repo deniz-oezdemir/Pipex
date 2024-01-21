@@ -6,7 +6,7 @@
 /*   By: denizozd <denizozd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:40:56 by denizozd          #+#    #+#             */
-/*   Updated: 2024/01/21 17:21:35 by denizozd         ###   ########.fr       */
+/*   Updated: 2024/01/21 18:14:47 by denizozd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,4 @@ void	child(char **av, char **ev, int *fd)
 	dup2(fd[1], 1); //1 for STDOUT_FILENO
 	close(fd[0]);
 	exec(av[2], ev);
-}	
+}

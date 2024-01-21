@@ -6,7 +6,7 @@
 /*   By: denizozd <denizozd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 16:27:31 by denizozd          #+#    #+#             */
-/*   Updated: 2024/01/21 17:19:42 by denizozd         ###   ########.fr       */
+/*   Updated: 2024/01/21 18:14:18 by denizozd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int	main(int ac, char **av, char **ev)
 			child(av, ev, fd);
 		waitpid(pid, NULL, 0);
 		parent(av, ev, fd);
-	}	
-	return (0);		
+	}
+	return (0);
 }
