@@ -6,7 +6,7 @@
 /*   By: denizozd <denizozd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:40:45 by denizozd          #+#    #+#             */
-/*   Updated: 2024/01/21 16:43:39 by denizozd         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:49:28 by denizozd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 # define PIPEX_H
 
 # include "./libft/libft.h"
-
-/* check which libraries are needed for whihc functions */
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <stdio.h>
-# include <sys/wait.h>
-# include <fcntl.h>
+# include <unistd.h> /*pipe, fork, close, access, dup2, execve*/
+# include <stdio.h> /*perror*/
+# include <sys/wait.h> /*waitpid*/
+# include <fcntl.h> /*open*/
 
 void	child(char **av, char **ev, int *fd);
 void	parent(char **av, char **ev, int *fd);

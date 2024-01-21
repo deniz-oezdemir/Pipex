@@ -49,7 +49,7 @@ The output should be: `2`.
 Try also `< file1 cat`.
 
 
-## What does `>>` do?
+## What does `>>` do? (Only relevant for bonus)
 
 `>` replaces  while `>>` appends the output of the command on the left to the the content of the file on the right:
 
@@ -63,7 +63,7 @@ echo "replace" > file2
 cat file2
 ```
 
-## What does `<<` do?
+## What does `<<` do? (Only relevant for bonus)
 
 The << symbol is used for a here document in shell scripting. A here document allows you to include multiple lines of input in a script or command directly, without needing to create a separate file. It's often used when you want to provide input to a command or script interactively or include a block of text as input.
 
@@ -93,8 +93,8 @@ more words
 
 ## Useful functions
 
+* access, pipe, fork, dup2, execve, waitpid, perror, open: look up in manual
 * libft functions, including ft_printf
-* access, pipe, fork, dup2, execve, waitpid: look up in manual
 
 ## Task
 
@@ -102,4 +102,4 @@ Recreate, e.g. the behavior of `< file1 grep "apple" | wc -l > file2` with a pro
 
 ## Sources
 
-* [concepts and pseudocode](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901) for the mandatory part
+* [explanation and pseudocode](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901) for the mandatory part
