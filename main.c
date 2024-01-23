@@ -6,17 +6,15 @@
 /*   By: denizozd <denizozd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 16:27:31 by denizozd          #+#    #+#             */
-/*   Updated: 2024/01/21 18:14:18 by denizozd         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:50:21 by denizozd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-/*
-- env: contains the environment variables to pass onto execve; can include
-information such as the user's home directory, the path to executable files,
-and other configuration settings
-*/
+/* The main function checks if the correct number of arguments is provided,
+sets up a pipe, forks a child process to execute the first command,
+and the parent process executes the second command. */
 int	main(int ac, char **av, char **ev)
 {
 	int		fd[2];

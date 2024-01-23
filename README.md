@@ -1,6 +1,10 @@
 # 42-Pipex
 
-##  How does `< file1 cmd1 | cmd2 > file2` work?
+## Aim
+
+Pipex emulates the functionality of the shell pipe `|` command. When executed as `./pipex infile cmd1 cmd2 outfile`, it mirrors the behavior of the shell command `< infile cmd1 | cmd2 > outfile`.
+
+##  Understanding how `< file1 cmd1 | cmd2 > file2` works
 
 The command < file1 cmd1 | cmd2 > file2 involves input/output redirection and a pipeline. Here's an explanation step by step:
 
@@ -48,8 +52,34 @@ The output should be: `2`.
 
 Try also `< file1 cat`.
 
+## Task
 
-## What does `>>` do? (Only relevant for bonus)
+Recreate, e.g. the behavior of `< file1 grep "apple" | wc -l > file2` with a program `pipex` such that it can be exectued as `./pipex file1 "grep "apple"" "wc -l" file2`.
+
+## Implementation
+To implement Pipex, I followed the guidelines provided in this [tutorial](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901).
+
+## Learnings
+
+* `pid_t` is a data type in C that represents a process ID, which is a unique identifier assigned to each process in a Unix-like operating system. It is commonly used in functions and system calls related to process management. Using `pid_t` ensures portability and consistency when working with process IDs across different systems.
+
+* When the function `int main(int ac, char **av, char **ev)` is executed, the `ev` contains the environment variables (intended to be passed onto `execve`). These variables may include information such as the user's home directory, the path to executable files, and other configuration settings.
+
+* The `int pipe(int fd[2])` function establishes a unidirectional communication channel between two processes, creating an array of two integers `fd` where `fd[0]` is utilized for reading from the pipe, and `fd[1]` is used for writing to the pipe (refer to second graph in source 1).
+
+* The `pid_t fork()` function creates a new process by duplicating the existing process (parent process). It's like making a copy of our program. The original program continues running as the 'parent,' and the new copy runs as the 'child.' We can tell which one is which because `fork()` gives 0 to the child and a number to the parent. If something goes wrong, it gives -1.
+
+* The `pid_t waitpid(pid_t pid, int *status, int options)` function is used to wait for a particular child process to complete its execution. The `pid` parameter is the process ID of the specific child process for which the parent is waiting. We use `NULL` as the second parameter because we aren't interested in storing the exit status of the child process. The third parameter, `0`, signifies that we're not adding any extra options.
+
+* The `int access(const char *pathname, int mode)` function "checks whether calling process can access the file pathname" (refer to source 3). In our case the condition `access(path, F_OK) == 0` checks if the file specified by the path exists.
+
+* The `int execve(const char *filename, char *const argv[], char *const envp[])` function executes the program pointed to by filename.
+In our case `execve(path, cmd, ev)` it takes three arguments: the `path` to the executable file, the array `cmd` of pointers to null-terminated strings that represent the command-line arguments for the new program and the array of pointers to null-terminated strings `ev` representing the environment variables.
+The execve function is responsible for running a specified command. It needs to explore every possible path to find the correct location of the executable - for example, if you want to know the path to the `touch` command, you can type `which touch` in your terminal. If the command exists, execve will execute it; otherwise, it will do nothing and return -1, indicating an error.
+Once the command is executed, execve takes care of cleaning up ongoing processes, including variables. You don't need to worry about freeing up resources; execve handles this for you.
+
+## Further learnings
+### What does `>>` do? (Only relevant for bonus)
 
 `>` replaces  while `>>` appends the output of the command on the left to the the content of the file on the right:
 
@@ -63,7 +93,7 @@ echo "replace" > file2
 cat file2
 ```
 
-## What does `<<` do? (Only relevant for bonus)
+### What does `<<` do? (Only relevant for bonus)
 
 The << symbol is used for a here document in shell scripting. A here document allows you to include multiple lines of input in a script or command directly, without needing to create a separate file. It's often used when you want to provide input to a command or script interactively or include a block of text as input.
 
@@ -96,10 +126,8 @@ more words
 * access, pipe, fork, dup2, execve, waitpid, perror, open: look up in manual
 * libft functions, including ft_printf
 
-## Task
-
-Recreate, e.g. the behavior of `< file1 grep "apple" | wc -l > file2` with a program `pipex` such that it can be exectued as `./pipex file1 "grep "apple"" "wc -l" file2`.
-
 ## Sources
 
-* [explanation and pseudocode](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901) for the mandatory part
+1. [Explanation of and pseudocode for the project](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901) for the mandatory part
+2. [Explanation of ho fork() works](https://www.geeksforgeeks.org/fork-system-call/)
+3. [access(2) - Linux man page](https://linux.die.net/man/2/access)
