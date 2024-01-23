@@ -69,6 +69,8 @@ To implement Pipex, I followed the guidelines provided in this [tutorial](https:
 
 * The `pid_t fork()` function creates a new process by duplicating the existing process (parent process). It's like making a copy of our program. The original program continues running as the 'parent,' and the new copy runs as the 'child.' We can tell which one is which because `fork()` gives 0 to the child and a number to the parent. If something goes wrong, it gives -1.
 
+* The `int dup2(int oldfd, int newfd)` duplicates a file descriptor. It takes two arguments: `oldfd`, the file descriptor to be duplicated, and `newfd`, the file descriptor to which oldfd should be duplicated.
+
 * The `pid_t waitpid(pid_t pid, int *status, int options)` function is used to wait for a particular child process to complete its execution. The `pid` parameter is the process ID of the specific child process for which the parent is waiting. We use `NULL` as the second parameter because we aren't interested in storing the exit status of the child process. The third parameter, `0`, signifies that we're not adding any extra options.
 
 * The `int access(const char *pathname, int mode)` function "checks whether calling process can access the file pathname" (refer to source 3). In our case the condition `access(path, F_OK) == 0` checks if the file specified by the path exists.
