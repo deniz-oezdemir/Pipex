@@ -92,20 +92,6 @@ Once the command is executed, execve takes care of cleaning up ongoing processes
 
 Implement a generic timeout prevention instead of the specific workaround for the case of "/dev/urandom" being the first command.
 
-### What does `>>` do? (Only relevant for bonus)
-
-`>` replaces  while `>>` appends the output of the command on the left to the the content of the file on the right:
-
-```
-echo "add" >> file2
-cat file2
-```
-
-```
-echo "replace" > file2
-cat file2
-```
-
 ## Useful functions
 
 * access, pipe, fork, dup2, execve, waitpid, perror, open: refer to manual
@@ -119,6 +105,20 @@ cat file2
 
 
 ## Other Learnings
+
+### What does `>>` do? (Only relevant for bonus)
+
+`>` replaces  while `>>` appends the output of the command on the left to the the content of the file on the right:
+
+```
+echo "add" >> file2
+cat file2
+```
+
+```
+echo "replace" > file2
+cat file2
+```
 
 ### What does `<<` do? (Only relevant for bonus)
 
