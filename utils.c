@@ -6,7 +6,7 @@
 /*   By: denizozd <denizozd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:41:06 by denizozd          #+#    #+#             */
-/*   Updated: 2024/01/23 21:54:09 by denizozd         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:25:25 by denizozd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,18 @@ void	exec(char *av, char **ev)
 		err();
 	}
 	if (execve(path, cmd, ev) == -1)
-		err(); //free cmd[i] and cmd necessary?
+	{
+		free_split(cmd);
+		free(path);
+		err();
+	}
 }
 
 /* Get the full path of the command by searching through the PATH variable:
-Searches through the PATH variable to find the full path of the command (where it is executed),
-returns the full path (including the command) if found, or NULL if the command is not in any of
-the specified paths. */
+Searches through the PATH variable to find the full path of
+the command (where it is executed),
+returns the full path (including the command) if found, or
+NULL if the command is not in any of the specified paths. */
 char	*get_path(char *cmd, char **ev)
 {
 	char	**all_paths;
@@ -58,15 +63,27 @@ char	*get_path(char *cmd, char **ev)
 		path = ft_strjoin(path_part, cmd);
 		free(path_part);
 		if (access(path, F_OK) == 0)
-			return (path); //free all_paths[i] and all_paths necessary?
+		{
+			free_split(all_paths);
+			return (path);
+		}
 		free(path);
 		i++;
 	}
-	i = 0;
-	while (all_paths[i])
-		free(all_paths[i++]);
-	free(all_paths);
+	free_split(all_paths);
 	return (0);
+}
+
+/* Frees the memory allocated for an array of strings such as
+the one created with ft_split. */
+void	free_split(char **strs)
+{
+	int	i;
+
+	i = 0;
+	while (strs[i])
+		free(strs[i++]);
+	free(strs);
 }
 
 /* Displays an error on stderr message using perror and exit the program. */

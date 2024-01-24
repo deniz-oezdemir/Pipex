@@ -59,7 +59,9 @@ Recreate, e.g. the behavior of `< file1 grep "apple" | wc -l > file2` with a pro
 ## Implementation
 To implement Pipex, I followed the guidelines provided in this [tutorial](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901).
 
-## Learnings
+For debugging I used the [pipex-tester](https://github.com/vfurmane/pipex-tester): A function `void free_split(char **strs)` was added to free the allocated memory in case of `execve` errors. A check for "/dev/urandom" as the first command was added for preventing timeouts by handling this specific case where attempting to open "/dev/urandom" (interface to the kernel's random number generator that provides access to a source of cryptographically secure pseudo-random numbers) leads to a lengthy operation or blocking behavior.
+
+## Used Functions
 
 * `pid_t` is a data type in C that represents a process ID, which is a unique identifier assigned to each process in a Unix-like operating system. It is commonly used in functions and system calls related to process management. Using `pid_t` ensures portability and consistency when working with process IDs across different systems.
 
@@ -80,7 +82,17 @@ In our case `execve(path, cmd, ev)` it takes three arguments: the `path` to the 
 The execve function is responsible for running a specified command. It needs to explore every possible path to find the correct location of the executable - for example, if you want to know the path to the `touch` command, you can type `which touch` in your terminal. If the command exists, execve will execute it; otherwise, it will do nothing and return -1, indicating an error.
 Once the command is executed, execve takes care of cleaning up ongoing processes, including variables. You don't need to worry about freeing up resources; execve handles this for you.
 
-## Further learnings
+## Key Learnings
+
+* Explored shell commands and pipes, understanding how they can work together for specific tasks.
+* Honed skills in file input/output operations, text manipulation and the processes of reading and writing to files.
+* Acquired knowledge on managing processes, including process creation, termination, and synchronization.
+
+## Future Work
+
+Implement a generic timeout prevention instead of the specific workaround for the case of "/dev/urandom" being the first command.
+
+## Side Learnings
 ### What does `>>` do? (Only relevant for bonus)
 
 `>` replaces  while `>>` appends the output of the command on the left to the the content of the file on the right:
@@ -125,7 +137,7 @@ more words
 
 ## Useful functions
 
-* access, pipe, fork, dup2, execve, waitpid, perror, open: look up in manual
+* access, pipe, fork, dup2, execve, waitpid, perror, open: refer to manual
 * libft functions, including ft_printf
 
 ## Sources
