@@ -92,7 +92,6 @@ Once the command is executed, execve takes care of cleaning up ongoing processes
 
 Implement a generic timeout prevention instead of the specific workaround for the case of "/dev/urandom" being the first command.
 
-## Side Learnings
 ### What does `>>` do? (Only relevant for bonus)
 
 `>` replaces  while `>>` appends the output of the command on the left to the the content of the file on the right:
@@ -106,6 +105,20 @@ cat file2
 echo "replace" > file2
 cat file2
 ```
+
+## Useful functions
+
+* access, pipe, fork, dup2, execve, waitpid, perror, open: refer to manual
+* libft functions, including ft_printf
+
+## Sources
+
+1. [Explanation of and pseudocode for the project](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901) for the mandatory part
+2. [Explanation of how fork() works](https://www.geeksforgeeks.org/fork-system-call/)
+3. [access(2) - Linux man page](https://linux.die.net/man/2/access)
+
+
+## Other Learnings
 
 ### What does `<<` do? (Only relevant for bonus)
 
@@ -134,14 +147,3 @@ add
 some
 more words
 ```
-
-## Useful functions
-
-* access, pipe, fork, dup2, execve, waitpid, perror, open: refer to manual
-* libft functions, including ft_printf
-
-## Sources
-
-1. [Explanation of and pseudocode for the project](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901) for the mandatory part
-2. [Explanation of ho fork() works](https://www.geeksforgeeks.org/fork-system-call/)
-3. [access(2) - Linux man page](https://linux.die.net/man/2/access)
