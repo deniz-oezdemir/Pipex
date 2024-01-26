@@ -65,7 +65,7 @@ For debugging I used the [pipex-tester](https://github.com/vfurmane/pipex-tester
 
 * `pid_t` is a data type in C that represents a process ID, which is a unique identifier assigned to each process in a Unix-like operating system. It is commonly used in functions and system calls related to process management. Using `pid_t` ensures portability and consistency when working with process IDs across different systems.
 
-* When the function `int main(int ac, char **av, char **ev)` is executed, the `ev` contains the environment variables (intended to be passed onto `execve`). These variables may include information such as the user's home directory, the path to executable files, and other configuration settings.
+* When the function `int main(int ac, char **av, char **ev)` is executed, the `ev` contains the environment variables (intended to be passed onto `execve`). These variables may include information such as the user's home directory, the path to executable files, and other configuration settings. Type `env` in your terminal to see what is included.
 
 * The `int pipe(int fd[2])` function establishes a unidirectional communication channel between two processes, creating an array of two integers `fd` where `fd[0]` is utilized for reading from the pipe, and `fd[1]` is used for writing to the pipe (refer to second graph in source 1).
 
@@ -78,7 +78,7 @@ For debugging I used the [pipex-tester](https://github.com/vfurmane/pipex-tester
 * The `int access(const char *pathname, int mode)` function "checks whether calling process can access the file pathname" (refer to source 3). In our case the condition `access(path, F_OK) == 0` checks if the file specified by the path exists.
 
 * The `int execve(const char *filename, char *const argv[], char *const envp[])` function executes the program pointed to by filename.
-In our case `execve(path, cmd, ev)` it takes three arguments: the `path` to the executable file, the array `cmd` of pointers to null-terminated strings that represent the command-line arguments for the new program and the array of pointers to null-terminated strings `ev` representing the environment variables.
+In our case `execve(path, cmd, ev)` it takes three arguments: the `path` to the executable file, the array `cmd` of commands the new program needs and the array of pointers to null-terminated strings `ev` representing the environment variables.
 The execve function is responsible for running a specified command. It needs to explore every possible path to find the correct location of the executable - for example, if you want to know the path to the `touch` command, you can type `which touch` in your terminal. If the command exists, execve will execute it; otherwise, it will do nothing and return -1, indicating an error.
 Once the command is executed, execve takes care of cleaning up ongoing processes, including variables. You don't need to worry about freeing up resources; execve handles this for you.
 
