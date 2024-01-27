@@ -13,7 +13,6 @@ The command < file1 cmd1 | cmd2 > file2 involves input/output redirection and a 
 4. `cmd2`: This is the second command in the pipeline. It takes the output of cmd1 as its input.
 5. `> file2`: This part involves output redirection. It takes the output of cmd2 and writes it to the file named "file2."
 
-
 Let's create an example using `grep` and `wc`. Suppose you have the following commands:
 1. cmd1: Searches for lines containing the word "apple" in the input.
 2. cmd2: Counts the number of lines in the input.
@@ -42,22 +41,18 @@ cat file2
 ```
 The output should be: `2`.
 
-
 Try also `< file1 cat`.
 
 ## Specific Task
 
 Recreate, e.g. the behavior of `< file1 grep "apple" | wc -l > file2` with a program `pipex` such that it can be exectued as `./pipex file1 "grep "apple"" "wc -l" file2`.
 
-## Implementation
-To implement Pipex, I followed the guidelines provided in this [tutorial](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901).
-
-For debugging I used the [pipex-tester](https://github.com/vfurmane/pipex-tester): A function `void free_split(char **strs)` was added to free the allocated memory in case of `execve` errors. A check for "/dev/urandom" as the first command was added for preventing timeouts by handling this specific case where attempting to open "/dev/urandom" (interface to the kernel's random number generator that provides access to a source of cryptographically secure pseudo-random numbers) leads to a lengthy operation or blocking behavior.
-
 ## Program Structure
+
 ![Pipex structure](./Pipex%20structure.svg)
 
 ## Information Flow during Program Execution
+
 ![Pipex info flow](./Pipex%20info%20flow.svg)
 
 ## Details on the Program and used Functions
@@ -80,6 +75,10 @@ For debugging I used the [pipex-tester](https://github.com/vfurmane/pipex-tester
 In our case `execve(path, cmd, ev)` it takes three arguments: the `path` to the executable file, the array `cmd` of commands the new program needs and the array of pointers to null-terminated strings `ev` representing the environment variables.
 The execve function is responsible for running a specified command. It needs to explore every possible path to find the correct location of the executable - for example, if you want to know the path to the `touch` command, you can type `which touch` in your terminal. If the command exists, execve will execute it; otherwise, it will do nothing and return -1, indicating an error.
 Once the command is executed, execve takes care of cleaning up ongoing processes, including variables. You don't need to worry about freeing up resources; execve handles this for you.
+
+## Debugging
+
+For debugging I used the [pipex-tester](https://github.com/vfurmane/pipex-tester): A function `void free_split(char **strs)` was added to free the allocated memory in case of `execve` errors. A check for "/dev/urandom" as the first command was added for preventing timeouts by handling this specific case where attempting to open "/dev/urandom" (interface to the kernel's random number generator that provides access to a source of cryptographically secure pseudo-random numbers) leads to a lengthy operation or blocking behavior.
 
 ## Key Learnings
 
