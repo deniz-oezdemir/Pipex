@@ -6,7 +6,7 @@
 /*   By: denizozd <denizozd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:41:06 by denizozd          #+#    #+#             */
-/*   Updated: 2024/01/26 14:52:25 by denizozd         ###   ########.fr       */
+/*   Updated: 2024/01/27 18:10:11 by denizozd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ retrieves the full path of the command,
 and executes the command using execve. */
 void	exec(char *av, char **ev)
 {
-
 	char	**cmd;
 	char	*path;
 	int		i;

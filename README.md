@@ -1,26 +1,20 @@
 # 42-Pipex
 
-## Aim
+## General Aim
 
 Pipex emulates the functionality of the shell pipe `|` command. When executed as `./pipex infile cmd1 cmd2 outfile`, it mirrors the behavior of the shell command `< infile cmd1 | cmd2 > outfile`.
 
-##  Understanding how `< file1 cmd1 | cmd2 > file2` works
+##  Explanation of `< file1 cmd1 | cmd2 > file2`
 
 The command < file1 cmd1 | cmd2 > file2 involves input/output redirection and a pipeline. Here's an explanation step by step:
-
 1. `< file1`: This part uses input redirection. It takes the content of the file named "file1" and provides it as the input for the command that follows.
-
 2. `cmd1`: This is the first command in the pipeline. It processes the input received from "file1."
-
 3. `|`: The pipe symbol (`|`) is used to connect the output of the command on its left (in this case, the output of cmd1) to the input of the command on its right (in this case, cmd2).
-
 4. `cmd2`: This is the second command in the pipeline. It takes the output of cmd1 as its input.
-
 5. `> file2`: This part involves output redirection. It takes the output of cmd2 and writes it to the file named "file2."
 
 
 Let's create an example using `grep` and `wc`. Suppose you have the following commands:
-
 1. cmd1: Searches for lines containing the word "apple" in the input.
 2. cmd2: Counts the number of lines in the input.
 Now, let's create an input file "file1" with some lines:
@@ -36,7 +30,6 @@ Now, let's use the < file1 cmd1 | cmd2 > file2 command:
 ```
 
 Here's what happens step by step:
-
 1. `< file1`: Takes the content of "file1" ("banana\napple\norange\napple\ngrape\n") and provides it as input for grep "apple".
 2. `grep "apple"`: Searches for lines containing the word "apple," resulting in "apple\napple\n".
 3. `wc -l`: Counts the number of lines in the output, resulting in "2\n".
@@ -52,7 +45,7 @@ The output should be: `2`.
 
 Try also `< file1 cat`.
 
-## Task
+## Specific Task
 
 Recreate, e.g. the behavior of `< file1 grep "apple" | wc -l > file2` with a program `pipex` such that it can be exectued as `./pipex file1 "grep "apple"" "wc -l" file2`.
 
@@ -67,7 +60,7 @@ For debugging I used the [pipex-tester](https://github.com/vfurmane/pipex-tester
 ## Information Flow during Program Execution
 ![Pipex info flow](./Pipex%20info%20flow.svg)
 
-## Used Functions
+## Details on the Program and used Functions
 
 * `pid_t` is a data type in C that represents a process ID, which is a unique identifier assigned to each process in a Unix-like operating system. It is commonly used in functions and system calls related to process management. Using `pid_t` ensures portability and consistency when working with process IDs across different systems.
 
@@ -96,23 +89,24 @@ Once the command is executed, execve takes care of cleaning up ongoing processes
 
 ## Future Work
 
-Implement a generic timeout prevention instead of the specific workaround for the case of "/dev/urandom" being the first command.
+Implement a general timeout prevention instead of the specific workaround for the case of "/dev/urandom" being the first command.
 
 ## Useful functions
 
-* access, pipe, fork, dup2, execve, waitpid, perror, open: refer to manual
-* libft functions, including ft_printf
+* `access`, `pipe`, `fork`, `dup2`, `execve`, `waitpid`, `perror`, `open`: Refer to manual.
+* `ft_split`, `ft_strjoin`, `ft_strnstr`: Refer to libft.
 
 ## Sources
 
 1. [Explanation of and pseudocode for the project](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901) for the mandatory part
 2. [Explanation of how fork() works](https://www.geeksforgeeks.org/fork-system-call/)
 3. [access(2) - Linux man page](https://linux.die.net/man/2/access)
+4. [Explanation of stdin, stdout and stderr](https://stackoverflow.com/questions/3385201/confused-about-stdin-stdout-and-stderr)
 
 
-## Other Learnings
+## Other Learnings (relevant for the Bonus)
 
-### What does `>>` do? (Only relevant for bonus)
+### Explanation of `>>`
 
 `>` replaces  while `>>` appends the output of the command on the left to the the content of the file on the right:
 
@@ -126,7 +120,7 @@ echo "replace" > file2
 cat file2
 ```
 
-### What does `<<` do? (Only relevant for bonus)
+###  Explanation of `<<`
 
 The << symbol is used for a here document in shell scripting. A here document allows you to include multiple lines of input in a script or command directly, without needing to create a separate file. It's often used when you want to provide input to a command or script interactively or include a block of text as input.
 
