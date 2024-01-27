@@ -62,10 +62,10 @@ To implement Pipex, I followed the guidelines provided in this [tutorial](https:
 For debugging I used the [pipex-tester](https://github.com/vfurmane/pipex-tester): A function `void free_split(char **strs)` was added to free the allocated memory in case of `execve` errors. A check for "/dev/urandom" as the first command was added for preventing timeouts by handling this specific case where attempting to open "/dev/urandom" (interface to the kernel's random number generator that provides access to a source of cryptographically secure pseudo-random numbers) leads to a lengthy operation or blocking behavior.
 
 ## Program Structure
-![Pipex structure](https://github.com/deniz-oezdemir/42-Pipex/assets/69081375/a6a699bd-2e89-4f55-ab7b-3d17e50f705b)
+![Pipex structure](./Pipex%20structure.svg)
 
 ## Information Flow during Program Execution
-![Pipex info flow](https://github.com/deniz-oezdemir/42-Pipex/assets/69081375/0610674b-dd53-4914-8f00-614a4566b090)
+![Pipex info flow](./Pipex%20info%20flow.svg)
 
 ## Used Functions
 
