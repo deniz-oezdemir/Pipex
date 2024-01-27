@@ -6,7 +6,7 @@
 /*   By: denizozd <denizozd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:40:56 by denizozd          #+#    #+#             */
-/*   Updated: 2024/01/26 14:52:12 by denizozd         ###   ########.fr       */
+/*   Updated: 2024/01/27 14:54:49 by denizozd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ closes the reading end of the pipe as it's not needed in this process,
 and executes the specified command. */
 void	child(char **av, char **ev, int *fd)
 {
-	int	filein;
+	int	file1;
 
-	filein = open(av[1], O_RDONLY, 0777);
-	if (filein == -1)
+	file1 = open(av[1], O_RDONLY, 0777);
+	if (file1 == -1)
 		err();
-	dup2(filein, 0);
+	dup2(file1, 0);
 	dup2(fd[1], 1);
 	close(fd[0]);
 	exec(av[2], ev);
@@ -42,13 +42,13 @@ closes the writing end of the pipe as it's not needed in this process,
 and executes the specified command. */
 void	parent(char **av, char **ev, int *fd)
 {
-	int	fileout;
+	int	file2;
 
-	fileout = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (fileout == -1)
+	file2 = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (file2 == -1)
 		err();
 	dup2(fd[0], 0);
-	dup2(fileout, 1);
+	dup2(file2, 1);
 	close(fd[1]);
 	exec(av[3], ev);
 }
