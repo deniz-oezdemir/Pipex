@@ -6,7 +6,7 @@
 /*   By: denizozd <denizozd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:41:06 by denizozd          #+#    #+#             */
-/*   Updated: 2024/01/27 18:10:11 by denizozd         ###   ########.fr       */
+/*   Updated: 2024/01/29 11:36:52 by denizozd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	exec(char *av, char **ev)
 		while (cmd[i])
 			free(cmd[i++]);
 		free(cmd);
-		err();
+		err(2);
 	}
 	if (execve(path, cmd, ev) == -1)
 	{
 		free_split(cmd);
 		free(path);
-		err();
+		err(1);
 	}
 }
 
@@ -86,9 +86,18 @@ void	free_split(char **strs)
 	free(strs);
 }
 
-/* Displays an error on stderr message using perror and exit the program. */
-void	err(void)
+/* Displays an error on stderr using perror and exits the program
+depending on the error case. */
+void	err(int nbr)
 {
-	perror("Error");
+	if (nbr == 1)
+	{
+		perror("Error\nExpected: ./pipex infile cmd cmd outfile\n");
+		exit(1);
+	}
+	else if (nbr == 2)
+		perror("Error\nCommand not found\n");
+	else
+		perror("Error");
 	exit(0);
 }

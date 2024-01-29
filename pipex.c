@@ -6,7 +6,7 @@
 /*   By: denizozd <denizozd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:40:56 by denizozd          #+#    #+#             */
-/*   Updated: 2024/01/27 14:54:49 by denizozd         ###   ########.fr       */
+/*   Updated: 2024/01/29 11:11:19 by denizozd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	child(char **av, char **ev, int *fd)
 
 	file1 = open(av[1], O_RDONLY, 0777);
 	if (file1 == -1)
-		err();
+		err(1);
 	dup2(file1, 0);
 	dup2(fd[1], 1);
 	close(fd[0]);
@@ -46,7 +46,7 @@ void	parent(char **av, char **ev, int *fd)
 
 	file2 = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (file2 == -1)
-		err();
+		err(1);
 	dup2(fd[0], 0);
 	dup2(file2, 1);
 	close(fd[1]);
