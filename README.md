@@ -16,6 +16,7 @@ The command < file1 cmd1 | cmd2 > file2 involves input/output redirection and a 
 Let's create an example using `grep` and `wc`. Suppose you have the following commands:
 1. cmd1: Searches for lines containing the word "apple" in the input.
 2. cmd2: Counts the number of lines in the input.
+
 Now, let's create an input file "file1" with some lines:
 
 ```
