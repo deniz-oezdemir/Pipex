@@ -79,9 +79,10 @@ Once the command is executed, execve takes care of cleaning up ongoing processes
 ## Debugging
 
 For debugging I used the [pipex-tester](https://github.com/vfurmane/pipex-tester):
-A function `void free_split(char **strs)` was added to free the allocated memory in case of `execve` errors.
-A check for "/dev/urandom" as the first command was added for preventing timeouts by handling this specific case where attempting to open "/dev/urandom" (interface to the kernel's random number generator that provides access to a source of cryptographically secure pseudo-random numbers) leads to a lengthy operation or blocking behavior.
-The error-handling function `void err(int nbr)` was added to display specific error messages based on the error case and exit the program accordingly.
+* A function `void free_split(char **strs)` was added to free the allocated memory in case of `execve` errors.
+* A check for "/dev/urandom" as the first command was added for preventing timeouts by handling this specific case where attempting to open "/dev/urandom" (interface to the kernel's random number generator that provides access to a source of cryptographically secure pseudo-random numbers) leads to a lengthy operation or blocking behavior.
+* Investigate the possibility of preventing the parent process from running when the child process encounters an error, and implement this functionality if feasible.
+* The error-handling function `void err(int nbr)` was added to display specific error messages based on the error case and exit the program accordingly.
 
 ## Key Learnings
 
@@ -91,8 +92,9 @@ The error-handling function `void err(int nbr)` was added to display specific er
 
 ## Future Work
 
-Implement a general timeout prevention instead of the specific workaround for the case of "/dev/urandom" being the first command.
-Improve the error-handling function `void err(int nbr)` to provide more granular error handling.
+* Implement a general timeout prevention instead of the specific workaround for the case of "/dev/urandom" being the first command.
+* Improve the error-handling function `void err(int nbr)` to provide more granular error handling.
+* Investigate the possibility of preventing the parent process from running when the child process encounters an error, and implement this functionality if feasible.
 
 ## Useful functions
 
