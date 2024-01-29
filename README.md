@@ -94,7 +94,7 @@ For debugging I used the [pipex-tester](https://github.com/vfurmane/pipex-tester
 ## Future Work
 
 * Implement a general timeout prevention instead of the specific workaround for the case of "/dev/urandom" being the first command.
-* Improve the error-handling function `void err(int nbr)` to provide more granular error handling.
+* Improve the error-handling function `void err(int nbr)` to provide more accurate error handling for when `access` in `char *get_path(char *cmd, char **ev)` is unsuccessful.
 * Investigate the possibility of preventing the parent process from running when the child process encounters an error, and implement this functionality if feasible.
 
 ## Useful functions
