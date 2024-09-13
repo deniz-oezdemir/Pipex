@@ -21,7 +21,7 @@ When executed as `./pipex file1 cmd1 cmd2 file2`, pipex mirrors the behavior of 
 
 ## TL;DR: Installation and Usage
 
-To install Pipex for your project, follow these steps:
+To install Pipex, follow these steps:
 
 1. Clone the repository from GitHub, navigate to the directory, build the pipex executable:
 
