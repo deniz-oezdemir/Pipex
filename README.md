@@ -39,19 +39,11 @@ To install Pipex for your project, follow these steps:
 
     Replace `file1` with the input file, `cmd1` with the first command, `cmd2` with the second command, and `file2` with the output file.
 
-3. Check the output file to see the result:
-
-    ```
-    cat file2
-    ```
-
-    The output should contain the result of the piped commands.
-
-
+    If this is too abstract, refer to the specific example in the [Specific Example](#specific-example) section.
 
 ##  Explanation of `< file1 cmd1 | cmd2 > file2`
 
-###   General functionality
+###   General Functionality
 The command < file1 cmd1 | cmd2 > file2 involves input/output redirection and a pipeline. Here's an explanation step by step:
 1. `< file1`: This part uses input redirection. It takes the content of the file named `file1` and provides it as the input for the command that follows.
 2. `cmd1`: This is the first command in the pipeline. It processes the input received from `file1.`
@@ -59,7 +51,7 @@ The command < file1 cmd1 | cmd2 > file2 involves input/output redirection and a 
 4. `cmd2`: This is the second command in the pipeline. It takes the output of cmd1 as its input.
 5. `> file2`: This part involves output redirection. It takes the output of cmd2 and writes it to the file named "file2."
 
-###   Specific example
+###   Specific Example
 Let's run through an example using `grep` and `wc`. Suppose you have the following commands:
 1. cmd1: Searches for lines containing the word "apple" in the input.
 2. cmd2: Counts the number of lines in the input.
