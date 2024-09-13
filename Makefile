@@ -31,11 +31,17 @@ SRCS = main.c pipex.c utils.c
 OBJS = $(SRCS:.c=.o)
 
 # Default target is to build the executable
-all: $(NAME)
+all: dependencies $(NAME)
 
-# Build the libft library
-$(LIB):
-	$(MAKE) -C $(LIBDIR)
+# Check if the libft library exists, if not, initialize and build it
+dependencies:
+	@if [ ! -f $(LIBDIR)/libft.a ]; then \
+		git submodule update --init --recursive; \
+	fi
+
+	@if [ ! -f $(LIBDIR)/libft.a ]; then \
+		make -s -C $(LIBDIR); \
+	fi
 
 # Build the executable using object files and libft
 $(NAME): $(OBJS) $(LIB)
