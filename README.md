@@ -1,19 +1,66 @@
 # 42-Pipex
 
-## General Aim
+Recreating the functionality of the shell pipe `|`.
 
-Pipex emulates the functionality of the shell pipe `|` command. When executed as `./pipex infile cmd1 cmd2 outfile`, it mirrors the behavior of the shell command `< infile cmd1 | cmd2 > outfile`.
+## Table of Contents
+- [About](#about)
+- [TL;DR: Installation and Usage](#tldr-installation-and-usage)
+- [Explanation of `< file1 cmd1 | cmd2 > file2`](#explanation-of--file1-cmd1--cmd2--file2)
+- [Program Structure (Graph)](#program-structure-graph)
+- [Information Flow during Program Execution (Graph)](#information-flow-during-program-execution-graph)
+- [Functions Used in the Program](#functions-used-in-the-program)
+- [Debugging](#debugging)
+- [Key Learnings](#key-learnings)
+- [Future Work](#future-work)
+- [Useful functions](#useful-functions)
+- [Sources](#sources)
+
+## About
+
+When executed as `./pipex file1 cmd1 cmd2 file2`, pipex mirrors the behavior of the shell command `< file1 cmd1 | cmd2 > file2`.
+
+## TL;DR: Installation and Usage
+
+To install Pipex for your project, follow these steps:
+
+1. Clone the repository from GitHub, navigate to the directory, build the pipex executable:
+
+    ```
+    git clone https://github.com/deniz/pipex.git
+    cd pipex
+    make
+    ```
+
+2. Run Pipex with the desired input and commands:
+
+    ```
+    ./pipex file1 cmd1 cmd2 file2
+    ```
+
+    Replace `file1` with the input file, `cmd1` with the first command, `cmd2` with the second command, and `file2` with the output file.
+
+3. Check the output file to see the result:
+
+    ```
+    cat file2
+    ```
+
+    The output should contain the result of the piped commands.
+
+
 
 ##  Explanation of `< file1 cmd1 | cmd2 > file2`
 
+###   General functionality
 The command < file1 cmd1 | cmd2 > file2 involves input/output redirection and a pipeline. Here's an explanation step by step:
-1. `< file1`: This part uses input redirection. It takes the content of the file named "file1" and provides it as the input for the command that follows.
-2. `cmd1`: This is the first command in the pipeline. It processes the input received from "file1."
-3. `|`: The pipe symbol (`|`) is used to connect the output of the command on its left (in this case, the output of cmd1) to the input of the command on its right (in this case, cmd2).
+1. `< file1`: This part uses input redirection. It takes the content of the file named `file1` and provides it as the input for the command that follows.
+2. `cmd1`: This is the first command in the pipeline. It processes the input received from `file1.`
+3. `|`: The pipe symbol is used to connect the output of the command on its left (in this case, the output of `cmd1`) to the input of the command on its right (in this case, `cmd2`).
 4. `cmd2`: This is the second command in the pipeline. It takes the output of cmd1 as its input.
 5. `> file2`: This part involves output redirection. It takes the output of cmd2 and writes it to the file named "file2."
 
-Let's create an example using `grep` and `wc`. Suppose you have the following commands:
+###   Specific example
+Let's run through an example using `grep` and `wc`. Suppose you have the following commands:
 1. cmd1: Searches for lines containing the word "apple" in the input.
 2. cmd2: Counts the number of lines in the input.
 
@@ -30,10 +77,10 @@ Now, let's use the < file1 cmd1 | cmd2 > file2 command:
 ```
 
 Here's what happens step by step:
-1. `< file1`: Takes the content of "file1" ("banana\napple\norange\napple\ngrape\n") and provides it as input for grep "apple".
+1. `< file1`: Takes the content of `file1` (`banana\napple\norange\napple\ngrape\n`) and provides it as input for `grep "apple"`.
 2. `grep "apple"`: Searches for lines containing the word "apple," resulting in "apple\napple\n".
 3. `wc -l`: Counts the number of lines in the output, resulting in "2\n".
-4. `> file2`: Writes the final line count (2) to "file2."
+4. `> file2`: Writes the final line count (2) to `file2.`
 
 Now, you can check the content of "file2" to see the result:
 
@@ -44,19 +91,15 @@ The output should be: `2`.
 
 Try also `< file1 cat`.
 
-## Specific Task
-
-Recreate, e.g. the behavior of `< file1 grep "apple" | wc -l > file2` with a program `pipex` such that it can be exectued as `./pipex file1 "grep "apple"" "wc -l" file2`.
-
-## Program Structure
+## Program Structure (Graph)
 
 ![Pipex structure](./Pipex%20structure.svg)
 
-## Information Flow during Program Execution
+## Information Flow during Program Execution (Graph)
 
 ![Pipex info flow](./Pipex%20info%20flow.svg)
 
-## Details on the Program and used Functions
+## Functions used in the Program
 
 * `pid_t` is a data type in C that represents a process ID, which is a unique identifier assigned to each process in a Unix-like operating system. It is commonly used in functions and system calls related to process management. Using `pid_t` ensures portability and consistency when working with process IDs across different systems.
 
@@ -82,7 +125,6 @@ Once the command is executed, execve takes care of cleaning up ongoing processes
 For debugging I used the [pipex-tester](https://github.com/vfurmane/pipex-tester):
 * A function `void free_split(char **strs)` was added to free the allocated memory in case of `execve` errors.
 * A check for "/dev/urandom" as the first command was added for preventing timeouts by handling this specific case where attempting to open "/dev/urandom" (interface to the kernel's random number generator that provides access to a source of cryptographically secure pseudo-random numbers) leads to a lengthy operation or blocking behavior.
-* Investigate the possibility of preventing the parent process from running when the child process encounters an error, and implement this functionality if feasible.
 * The error-handling function `void err(int nbr)` was added to display specific error messages based on the error case and exit the program accordingly.
 
 ## Key Learnings
@@ -99,57 +141,12 @@ For debugging I used the [pipex-tester](https://github.com/vfurmane/pipex-tester
 
 ## Useful functions
 
-* `access`, `pipe`, `fork`, `dup2`, `execve`, `waitpid`, `perror`, `open`: Refer to manual.
-* `ft_split`, `ft_strjoin`, `ft_strnstr`: Refer to libft.
+* `access`, `pipe`, `fork`, `dup2`, `execve`, `waitpid`, `perror`, `open`: Refer to [linux man pages](https://linux.die.net/man/).
+* `ft_split`, `ft_strjoin`, `ft_strnstr`: Refer to [libft](https://github.com/deniz-oezdemir/libft).
 
 ## Sources
 
-1. [Explanation of and pseudocode for the project](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901) for the mandatory part
-2. [Explanation of how fork() works](https://www.geeksforgeeks.org/fork-system-call/)
-3. [access(2) - Linux man page](https://linux.die.net/man/2/access)
-4. [Explanation of stdin, stdout and stderr](https://stackoverflow.com/questions/3385201/confused-about-stdin-stdout-and-stderr)
-
-
-## Other Learnings (relevant for the Bonus)
-
-### Explanation of `>>`
-
-`>` replaces  while `>>` appends the output of the command on the left to the the content of the file on the right:
-
-```
-echo "add" >> file2
-cat file2
-```
-
-```
-echo "replace" > file2
-cat file2
-```
-
-###  Explanation of `<<`
-
-The << symbol is used for a here document in shell scripting. A here document allows you to include multiple lines of input in a script or command directly, without needing to create a separate file. It's often used when you want to provide input to a command or script interactively or include a block of text as input.
-
-The basic syntax is:
-```
-command << delimiter
-    input lines
-delimiter
-```
-
-Example:
-```
-cat << end >> file2
-heredoc> add
-heredoc> some
-heredoc> more words
-heredoc> end
-```
-
-`cat file2`:
-```
-replace
-add
-some
-more words
-```
+* [Explanation of and pseudocode for the project](https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901) for the mandatory part
+* [Explanation of how fork() works](https://www.geeksforgeeks.org/fork-system-call/)
+* [access(2) - Linux man page](https://linux.die.net/man/2/access)
+* [Explanation of stdin, stdout and stderr](https://stackoverflow.com/questions/3385201/confused-about-stdin-stdout-and-stderr)
