@@ -1,4 +1,4 @@
-# 42-Pipex
+# Pipex
 
 Recreating the functionality of the shell pipe `|`.
 
